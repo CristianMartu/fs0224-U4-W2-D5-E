@@ -12,6 +12,10 @@ public class Magazines extends Catalog {
         this.periodicity = periodicity;
     }
 
+    public Periodicity getPeriodicity() {
+        return periodicity;
+    }
+
     @Override
     public String toString() {
         return "Magazines{" +

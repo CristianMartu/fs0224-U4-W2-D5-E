@@ -15,13 +15,33 @@ public abstract class Catalog {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "Catalog{" +
-                "ISBN='" + ISBN + '\'' +
-                ", title='" + title + '\'' +
-                ", yearOfPublication=" + yearOfPublication +
-                ", pages=" + pages +
-                '}';
+    public String getISBN() {
+        return ISBN;
     }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDate getYearOfPublication() {
+        return yearOfPublication;
+    }
+
+    public int getPages() {
+        return pages;
+    }
+//    @Override
+//    public String toString() {
+//        return ISBN + '#' +  pages + '#' + yearOfPublication + '#' + title;
+//    }
+
+//    @Override
+//    public String toString() {
+//        return "Catalog{" +
+//                "ISBN='" + ISBN + '\'' +
+//                ", title='" + title + '\'' +
+//                ", yearOfPublication=" + yearOfPublication +
+//                ", pages=" + pages +
+//                '}';
+//    }
 }

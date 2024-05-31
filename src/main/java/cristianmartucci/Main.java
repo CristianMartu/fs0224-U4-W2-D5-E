@@ -4,6 +4,8 @@ import com.github.javafaker.Faker;
 import cristianmartucci.entities.*;
 import cristianmartucci.enums.Periodicity;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,10 +45,8 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        //       List<Catalog> data = createData(10);  // per partire con catalogo pre-riempito
-        List<Catalog> data = new ArrayList<>(); // catalogo vuoto
+        List<Catalog> data = new ArrayList<>();
         Archive archive = new Archive(data);
-        //      archive.getArchive().forEach(System.out::println);  // perso tempo inutilmente per creazioni randomiche ma visto che l'ho fatto lo lascio :(
 
         System.out.println("_____Aggiunta elementi_____");
         archive.add(new Books("879-0-04-528988-9", 100, LocalDate.parse("2004-06-10"), "The Witcher", "Andrzej Sapkowski", "Fantasy"));
@@ -86,7 +86,22 @@ public class Main {
             System.out.println(error.getMessage());
         }
 
+        System.out.println("\n_____Elementi casuali_____");
+        List<Catalog> RandomData = createData(10);  // per partire con catalogo pre-riempito
+        Archive randomArchive = new Archive(RandomData);    // perso tempo inutilmente la mattina per la creazione casuale ma visto che l'ho fatto lo lascio :(
+        randomArchive.getArchive().forEach(System.out::println);
 
+        System.out.println("\n_____Salvataggio su disco di archivio_____");
+        randomArchive.save();
+
+        System.out.println("\n_____Caricamento da disco dell'archivio_____");
+        File file = new File("src/save.txt");
+        try {
+            String read = Archive.read(file);
+            System.out.println(read);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
