@@ -12,6 +12,7 @@ public class Books extends Catalog {
         this.type = type;
     }
 
+
     public String getAuthor() {
         return author;
     }

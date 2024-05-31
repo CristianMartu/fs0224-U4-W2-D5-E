@@ -1,5 +1,6 @@
 package cristianmartucci.entities;
 
+import cristianmartucci.enums.Periodicity;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -17,35 +18,41 @@ public class Archive {
         this.archive = archive;
     }
 
-    public static String read(File file) throws IOException {
-        String readFile = FileUtils.readFileToString(file, "UTF-8");
-//        System.out.println(readFile);
-        return readFile;
+    public static void load(File file) {
+        try {
+            List<String> string = FileUtils.readLines(file, "UTF-8");
+            List<Catalog> copyArchive = new ArrayList<>();
+            for (String stringa : string) {
+                String[] readData = stringa.split("#");
+                System.out.println(string);
+                if (readData[0].equals("Books")) {
+                    System.out.println("Book");
+                    copyArchive.add(new Books(readData[1], Integer.parseInt(readData[2]), LocalDate.parse(readData[3]), readData[4], readData[5], readData[6]));
+                } else if (readData[0].equals("Magazines")) {
+                    System.out.println("Magazine");
+                    copyArchive.add(new Magazines(readData[1], Integer.parseInt(readData[2]), LocalDate.parse(readData[3]), readData[4], Periodicity.valueOf(readData[5])));
+                }
+            }
+            System.out.println("\n" + copyArchive);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-//    public static void save(Archive archive) {
-//        File file = new File("src/save.txt");
-//        try {
-//            FileUtils.writeStringToFile(file, archive.toString(), StandardCharsets.UTF_8);
-//            System.out.println("File salvato correttamente");
-//        } catch (IOException error) {
-//            System.out.println(error.getMessage());
-//        }
-//    }
 
     public void save() {
         List<String> string = new ArrayList<>();
         for (Catalog catalog : archive) {
             if (catalog instanceof Books book) {
-                string.add("Books-" + book.getISBN() + "-" + book.getPages() + "-" +
-                        book.getYearOfPublication() + "-" + book.getTitle() + "-" +
-                        book.getAuthor() + "-" + book.getType());
+                string.add("Books#" + book.getISBN() + "#" + book.getPages() + "#" +
+                        book.getYearOfPublication() + "#" + book.getTitle() + "#" +
+                        book.getAuthor() + "#" + book.getType());
             } else if (catalog instanceof Magazines magazine) {
-                string.add("Magazines-" + magazine.getISBN() + "-" + magazine.getPages() + "-" +
-                        magazine.getYearOfPublication() + "-" + magazine.getTitle() + "-" +
+                string.add("Magazines#" + magazine.getISBN() + "#" + magazine.getPages() + "#" +
+                        magazine.getYearOfPublication() + "#" + magazine.getTitle() + "#" +
                         magazine.getPeriodicity());
             }
         }
+        System.out.println("\nStringa: " + string);
         File file = new File("src/save.txt");
         try {
             FileUtils.writeStringToFile(file, String.valueOf(string), StandardCharsets.UTF_8);

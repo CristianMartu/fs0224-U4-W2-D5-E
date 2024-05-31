@@ -5,7 +5,6 @@ import cristianmartucci.entities.*;
 import cristianmartucci.enums.Periodicity;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -96,12 +95,8 @@ public class Main {
 
         System.out.println("\n_____Caricamento da disco dell'archivio_____");
         File file = new File("src/save.txt");
-        try {
-            String read = Archive.read(file);
-            System.out.println(read);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Archive.load(file);
+
     }
 
 }

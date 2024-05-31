@@ -5,12 +5,13 @@ import cristianmartucci.enums.Periodicity;
 import java.time.LocalDate;
 
 public class Magazines extends Catalog {
-    private final Periodicity periodicity;
+    public Periodicity periodicity;
 
     public Magazines(String ISBN, int pages, LocalDate yearOfPublication, String title, Periodicity periodicity) {
         super(ISBN, pages, yearOfPublication, title);
         this.periodicity = periodicity;
     }
+
 
     public Periodicity getPeriodicity() {
         return periodicity;
