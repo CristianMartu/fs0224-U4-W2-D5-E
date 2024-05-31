@@ -9,6 +9,10 @@ public class Archive {
         this.archive = archive;
     }
 
+    public List<Catalog> getArchive() {
+        return archive;
+    }
+
     @Override
     public String toString() {
         return "Archive{" +
