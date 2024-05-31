@@ -20,10 +20,14 @@ public class Archive {
 
     public static void load(File file) {
         try {
-            List<String> string = FileUtils.readLines(file, "UTF-8");
             List<Catalog> copyArchive = new ArrayList<>();
-            for (String stringa : string) {
-                String[] readData = stringa.split("#");
+            List<String> read = FileUtils.readLines(file, "UTF-8");
+
+            System.out.println(read.size());
+            System.out.println(read.getFirst());
+
+            for (String string : read) {
+                String[] readData = string.split("#");
                 System.out.println(string);
                 if (readData[0].equals("Books")) {
                     System.out.println("Book");
@@ -33,6 +37,7 @@ public class Archive {
                     copyArchive.add(new Magazines(readData[1], Integer.parseInt(readData[2]), LocalDate.parse(readData[3]), readData[4], Periodicity.valueOf(readData[5])));
                 }
             }
+
             System.out.println("\n" + copyArchive);
         } catch (IOException e) {
             throw new RuntimeException(e);
