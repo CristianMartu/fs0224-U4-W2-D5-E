@@ -5,7 +5,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,27 +17,19 @@ public class Archive {
         this.archive = archive;
     }
 
-    public static void load(File file) {
+    public static List<Catalog> load(File file) {
         try {
             List<Catalog> copyArchive = new ArrayList<>();
             List<String> read = FileUtils.readLines(file, "UTF-8");
-
-            System.out.println(read.size());
-            System.out.println(read.getFirst());
-
             for (String string : read) {
                 String[] readData = string.split("#");
-                System.out.println(string);
                 if (readData[0].equals("Books")) {
-                    System.out.println("Book");
                     copyArchive.add(new Books(readData[1], Integer.parseInt(readData[2]), LocalDate.parse(readData[3]), readData[4], readData[5], readData[6]));
                 } else if (readData[0].equals("Magazines")) {
-                    System.out.println("Magazine");
                     copyArchive.add(new Magazines(readData[1], Integer.parseInt(readData[2]), LocalDate.parse(readData[3]), readData[4], Periodicity.valueOf(readData[5])));
                 }
             }
-
-            System.out.println("\n" + copyArchive);
+            return copyArchive;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -57,10 +48,11 @@ public class Archive {
                         magazine.getPeriodicity());
             }
         }
+
         System.out.println("\nStringa: " + string);
         File file = new File("src/save.txt");
         try {
-            FileUtils.writeStringToFile(file, String.valueOf(string), StandardCharsets.UTF_8);
+            FileUtils.writeLines(file, string);
             System.out.println("File salvato correttamente");
         } catch (IOException error) {
             System.out.println(error.getMessage());

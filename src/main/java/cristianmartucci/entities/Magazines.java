@@ -5,7 +5,7 @@ import cristianmartucci.enums.Periodicity;
 import java.time.LocalDate;
 
 public class Magazines extends Catalog {
-    public Periodicity periodicity;
+    private final Periodicity periodicity;
 
     public Magazines(String ISBN, int pages, LocalDate yearOfPublication, String title, Periodicity periodicity) {
         super(ISBN, pages, yearOfPublication, title);

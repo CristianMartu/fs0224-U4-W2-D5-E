@@ -95,8 +95,8 @@ public class Main {
 
         System.out.println("\n_____Caricamento da disco dell'archivio_____");
         File file = new File("src/save.txt");
-        Archive.load(file);
-
+        Archive loadFile = new Archive(Archive.load(file));
+        System.out.println(loadFile);
     }
 
 }
