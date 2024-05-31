@@ -43,10 +43,10 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        //       List<Catalog> data = createData(10);  //per partire con catalogo pre-riempito
+        //       List<Catalog> data = createData(10);  // per partire con catalogo pre-riempito
         List<Catalog> data = new ArrayList<>(); // catalogo vuoto
         Archive archive = new Archive(data);
-        //      archive.getArchive().forEach(System.out::println);
+        //      archive.getArchive().forEach(System.out::println);  // perso tempo inutilmente per creazioni randomiche ma visto che l'ho fatto lo lascio :(
 
         System.out.println("_____Aggiunta elementi_____");
         archive.add(new Books("879-0-04-528988-9", 100, LocalDate.parse("2004-06-10"), "The Witcher", "Andrzej Sapkowski", "Fantasy"));
@@ -55,7 +55,7 @@ public class Main {
         System.out.println();
         archive.add(new Books("979-0-04-528988-9", 100, LocalDate.parse("1987-06-10"), "The Witcher", "Andrzej Sapkowski", "Fantasy"));
         System.out.println();
-        archive.add(new Books("779-0-04-528988-9", 100, LocalDate.parse("1997-06-10"), "The Witcher", "Andrzej Sapkowski", "Fantasy"));
+        archive.add(new Books("779-0-04-528988-9", 100, LocalDate.parse("1997-06-10"), "Game Of Thrones", "Martin", "Fantasy"));
 
         System.out.println("\n_____Rimozione elementi_____");
         archive.remove("979-0-04-528988-9");
@@ -65,18 +65,27 @@ public class Main {
         System.out.println("\n_____Ricerca per ISBN_____");
         try {
             System.out.println(archive.searchByISBN("779-0-04-528988-9"));
-            System.out.println(archive.searchByISBN("779-0-04-528982-9")); //prova errore
+//            System.out.println(archive.searchByISBN("779-0-04-528982-9")); //prova errore
         } catch (CatalogException error) {
             System.out.println(error.getMessage());
         }
 
-        System.out.println("\n_____Ricerca per anno di pubblicazione_____");
+        System.out.println("\n_____Ricerca per anno_____");
         try {
             System.out.println(archive.serchByYear(LocalDate.parse("2004-06-10")));
-            System.out.println(archive.serchByYear(LocalDate.parse("2004-07-10"))); //prova errore
+//            System.out.println(archive.serchByYear(LocalDate.parse("2004-07-10"))); //prova errore
         } catch (CatalogException error) {
             System.out.println(error.getMessage());
         }
+
+        System.out.println("\n_____Ricerca per autore_____");
+        try {
+            System.out.println(archive.searchByAuthor("Andrzej Sapkowski"));
+//            System.out.println(archive.searchByAuthor("Prova")); //prova errore
+        } catch (CatalogException error) {
+            System.out.println(error.getMessage());
+        }
+
 
     }
 

@@ -42,6 +42,13 @@ public class Archive {
         } else throw new CatalogException("Nessum elemento trovato con data: " + year);
     }
 
+    public List<Catalog> searchByAuthor(String author) throws CatalogException {
+        List<Catalog> result = archive.stream().filter(catalog -> catalog instanceof Books).filter(book -> Objects.equals(((Books) book).getAuthor(), author)).toList();
+        if (!result.isEmpty()) {
+            return result;
+        } else throw new CatalogException("Nessum elemento trovato con data: " + author);
+    }
+
     @Override
     public String toString() {
         return "Archive{" +
