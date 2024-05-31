@@ -1,8 +1,17 @@
 package cristianmartucci;
 
+import cristianmartucci.entities.Books;
+
 public class Application {
+    public static void createRandomData() {
+
+    }
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        createBook();
+    }
+
+    public static Books createBook() {
+
     }
 }
